@@ -28,4 +28,12 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    async createThought(req, res) {
+        try {
+            const dbUserData = await Thought.create(req.body);
+            res.json(dbUserData);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 }
