@@ -15,9 +15,15 @@ module.exports = {
     },
     async getSingleUser(req, res) {
         try {
-            const user = await User.findOne({ _id: req.params.userId })
+          const userId = req.params.userId;
+
+          if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+            const user = await User.findOne({ _id: userId })
                 .select('-__v')
-                .populate('thoughts','friends');
+                .populate('thoughts')
+                .populate('friends');
                 
 
             if (!user) {

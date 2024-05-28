@@ -16,7 +16,7 @@ module.exports = {
         try {
             const thought = await Thought.findOne({ _id: req.params.thoughtId })
                 .select('-__v')
-                .populate('users');
+                .populate('thoughts');
                 
 
             if (!thought) {
