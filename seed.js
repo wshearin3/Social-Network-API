@@ -5,23 +5,40 @@ const mongoose = require('mongoose');
 const seedUsers = async () => {
     await mongoose.connection.dropDatabase();
 
+    const thoughts = [
+        {
+            thoughtText: 'I have a thought',
+            username: 'Trey',
+        },
+        {
+            thoughtText: 'I have a very interesting thought',
+            username: 'Bob',
+        },
+        {
+            thoughtText: 'I have the most interesting thought',
+            username: 'Jane',
+        },
+    ]
+
+    const createdThoughts = await Thought.insertMany(thoughts);
+
     const users = [
         {
             username: 'Trey',
             email: 'trey@example.com',
-            thoughts: [],
+            thoughts: [createdThoughts[0]._id],
             friends:[],
         },
         {
             username: 'Bob',
             email: 'bob@example.com',
-            thoughts: [],
+            thoughts: [createdThoughts[1]._id],
             friends: [],
         },
         {
             username: 'Jane',
             email: 'jane@example.com',
-            thoughts: [],
+            thoughts: [createdThoughts[2]._id],
             friends: [],
         },
     ];
